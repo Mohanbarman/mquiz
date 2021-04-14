@@ -1,0 +1,12 @@
+Quiz App Todo:
+  ☐ logic
+    ✔ create types for response and usable objects @done(21-04-14 13:10)
+    ✔ create a function (amount, difficulty?, category?) => QuestionType[] @done(21-04-14 14:45)
+    ✔ create a function to fetch all the categories () => Category[] @done(21-04-14 15:07)
+    ☐ take input about for amount, difficulty, type from user from frontend
+    ☐ add points for each question solved according to difficulty
+  ☐ frontend
+    ☐ display question text
+    ☐ progress bar (current_question / total_question)
+    ☐ response when user clicks on a answer
+    ☐ result at the end, display total question, right attempts, wrong attempts, total points
