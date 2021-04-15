@@ -26,7 +26,6 @@ const QuestionScreen: React.FC<Props> = ({
 
   return (
     <div>
-      <h5>Points : {points}</h5>
       <h3>
         Question : ${index + 1} {question.question}
       </h3>
