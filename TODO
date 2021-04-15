@@ -7,6 +7,10 @@ Quiz App Todo:
     ✔ add points for each question solved according to difficulty @done(21-04-15 13:29)
   ☐ frontend
     ✔ display question text @done(21-04-15 13:29)
-    ☐ progress bar (current_question / total_question)
+    ✔ buid ui @done(21-04-15 17:28)
+    ☐ add styling to welcome page
+    ☐ add styling to dropdown
+    ☐ create question component
+    ☐ add styling to results page
     ☐ response when user clicks on a answer
-    ☐ result at the end, display total question, right attempts, wrong attempts, total points
+    ☐ result at the end, total points
