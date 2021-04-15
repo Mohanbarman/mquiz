@@ -27,7 +27,7 @@ const App: React.FC = () => {
 
   function handleNextQuestion() {
     setCurrentQuestionIndex((p) => {
-      // game over of user is on last question
+      // game over if user is on last question and presses next
       if (p + 2 === questions.length) {
         setIsGameOver(true);
         setIsGameStarted(false);
@@ -44,20 +44,22 @@ const App: React.FC = () => {
   }
 
   return (
-    <div>
-      {isGameStarted && (
-        <QuestionScreen
-          question={questions[currentQuestionIndex]}
-          points={points}
-          onNext={handleNextQuestion}
-          onAnswer={handleAnswerSubmit}
-          index={currentQuestionIndex}
-        />
-      )}
-      {!isGameOver && !isGameStarted && (
-        <StartScreen callback={loadQuestions} />
-      )}
-      {isGameOver && <ResultScreen points={points} questions={questions} />}
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <div style={{maxWidth: '1000px'}}>
+        {isGameStarted && (
+          <QuestionScreen
+            question={questions[currentQuestionIndex]}
+            points={points}
+            onNext={handleNextQuestion}
+            onAnswer={handleAnswerSubmit}
+            index={currentQuestionIndex}
+          />
+        )}
+        {!isGameOver && !isGameStarted && (
+          <StartScreen callback={loadQuestions} />
+        )}
+        {isGameOver && <ResultScreen points={points} questions={questions} />}
+      </div>
     </div>
   );
 };
