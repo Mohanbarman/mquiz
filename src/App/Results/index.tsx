@@ -1,5 +1,5 @@
 import React from "react";
-import { QuestionType } from "../api/fetchQuestions";
+import { QuestionType } from "@api/fetchQuestions";
 
 type Props = {
     points: number;

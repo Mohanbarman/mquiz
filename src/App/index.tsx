@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import fetchQuestions, { QuestionType } from "./api/fetchQuestions";
-import QuestionScreen from "./screens/question";
-import ResultScreen from "./screens/results";
-import StartScreen from "./screens/start";
+import fetchQuestions, { QuestionType } from "../api/fetchQuestions";
+import QuestionScreen from "./Question";
+import ResultScreen from "./Results";
+import StartScreen from "./Welcome";
 
 const App: React.FC = () => {
   const [isGameStarted, setIsGameStarted] = useState<boolean>(false);

@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
-import fetchCategories, { CategoryType } from "../api/fetchCategories";
-import { DIFFICULTY } from "../api/fetchQuestions";
+import fetchCategories, { CategoryType } from "@api/fetchCategories";
+import { DIFFICULTY } from "@api/fetchQuestions";
+import { H1 } from "@shared/typography";
+import { Flex } from "@shared/flex";
 
 type Props = {
-  callback: (amount: number, difficulty: string|undefined, category: number|undefined) => void,
-}
+  callback: (
+    amount: number,
+    difficulty: string | undefined,
+    category: number | undefined
+  ) => void;
+};
 
-const StartScreen: React.FC<Props> = ({callback}) => {
+const StartScreen: React.FC<Props> = ({ callback }) => {
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [amount, setAmount] = useState<number>(10);
-  const [difficulty, setDifficulty] = useState<string>('');
+  const [difficulty, setDifficulty] = useState<string>("");
   const [category, setCategory] = useState<number>();
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string>("");
 
   const validAmounts = [3, 5, 10, 15, 20];
   const difficulties = [DIFFICULTY.EASY, DIFFICULTY.HARD, DIFFICULTY.MEDIUM];
@@ -25,13 +31,19 @@ const StartScreen: React.FC<Props> = ({callback}) => {
   }, []);
 
   return (
-    <div>
-      <h1>Welcome to the trivia</h1>
+    <Flex
+      direction={"column"}
+      align={"center"}
+      gap={"20px"}
+      style={{ paddingTop: "30px" }}
+    >
+      <img src={"/svgs/welcome.svg"} alt={"welcome cat"} />
+      <H1>To The Trivia</H1>
       {error && <h3>{error}</h3>}
       {loading && !error ? (
         <h5>Loading...</h5>
       ) : (
-        <div>
+        <Flex direction={"column"} align={"center"} gap={"10px"}>
           <div>
             <label htmlFor="amount">Select number of questions</label>
             <select
@@ -82,9 +94,9 @@ const StartScreen: React.FC<Props> = ({callback}) => {
               Start
             </button>
           </div>
-        </div>
+        </Flex>
       )}
-    </div>
+    </Flex>
   );
 };
 

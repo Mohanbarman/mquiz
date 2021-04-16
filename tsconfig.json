@@ -7,6 +7,10 @@
       "esnext"
     ],
     "allowJs": true,
+    "paths": {
+      "@api/*": ["./src/api/*"],
+      "@shared/*": ["./src/shared/*"]
+    },
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
