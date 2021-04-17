@@ -23,9 +23,9 @@ const StyledQuestionHeading = styled.div`
   position: absolute;
   background-color: ${colors.light["1"]};
   border: 1px solid ${colors.primary["3"]};
-  top: -50%;
+  top: 0%;
   left: 50%;
-  transform: translate(-50%, 50%);
+  transform: translate(-50%, -50%);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
 `;
 
