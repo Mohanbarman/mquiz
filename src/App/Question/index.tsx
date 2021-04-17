@@ -51,7 +51,7 @@ const QuestionScreen: React.FC<Props> = ({
           heading={`Question : ${index + 1}`}
           body={question.question}
         />
-        <Flex gap={"20px"} style={{ width: "100%" }}>
+        <Flex gap={"10px"} style={{ width: "100%" }}>
           {question.answers.map((answer, index) => (
             <StyledRadio
               color={correctAnswer === answer ? "green" : "red"}
