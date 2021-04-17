@@ -4,12 +4,14 @@ import QuestionScreen from "./Question";
 import ResultScreen from "./Results";
 import StartScreen from "./Welcome";
 import styled from "styled-components";
+import LoadingCat from "../shared/loadingCat";
 
 const CenterContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 30px;
   width: 100%;
+  min-height: 100vh;
 `;
 
 const CenterContainerChild = styled.div`
@@ -23,17 +25,20 @@ const App: React.FC = () => {
   const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [points, setPoints] = useState<number>(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
+  const [isLoadingQuestions, setIsLoadingQuestions] = useState<boolean>(false);
 
   async function loadQuestions(
     amount: number,
     difficulty: string | undefined,
     categoryID: number | undefined
   ) {
+    setIsLoadingQuestions(true);
     const questionsResponse = await fetchQuestions(
       amount,
       difficulty,
       categoryID
     );
+    setIsLoadingQuestions(false);
     setQuestions(questionsResponse);
     setIsGameStarted(true);
   }
@@ -56,23 +61,39 @@ const App: React.FC = () => {
     }
   }
 
+  function handlePlayAgain() {
+    setIsGameOver(false);
+    setPoints(0);
+    setCurrentQuestionIndex(0);
+  }
+
   return (
     <CenterContainer>
-      <CenterContainerChild>
-        {isGameStarted && (
-          <QuestionScreen
-            question={questions[currentQuestionIndex]}
-            points={points}
-            onNext={handleNextQuestion}
-            onAnswer={handleAnswerSubmit}
-            index={currentQuestionIndex}
-          />
-        )}
-        {!isGameOver && !isGameStarted && (
-          <StartScreen callback={loadQuestions} />
-        )}
-        {isGameOver && <ResultScreen points={points} questions={questions} />}
-      </CenterContainerChild>
+      {isLoadingQuestions ? (
+        <LoadingCat center={true} label={"Loading questions..."} />
+      ) : (
+        <CenterContainerChild>
+          {isGameStarted && (
+            <QuestionScreen
+              question={questions[currentQuestionIndex]}
+              points={points}
+              onNext={handleNextQuestion}
+              onAnswer={handleAnswerSubmit}
+              index={currentQuestionIndex}
+            />
+          )}
+          {!isGameOver && !isGameStarted && (
+            <StartScreen callback={loadQuestions} />
+          )}
+          {isGameOver && (
+            <ResultScreen
+              onPlayAgain={handlePlayAgain}
+              points={points}
+              questions={questions}
+            />
+          )}
+        </CenterContainerChild>
+      )}
     </CenterContainer>
   );
 };
