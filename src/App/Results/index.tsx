@@ -1,17 +1,22 @@
 import React from "react";
 import { QuestionType } from "../../api/fetchQuestions";
+import { Flex } from "../../shared/flex";
+import { H2, H1 } from "../../shared/typography";
 
 type Props = {
-    points: number;
-    questions: QuestionType[];
-}
+  points: number;
+  questions: QuestionType[];
+};
 
-const ResultScreen: React.FC<Props> = ({points, questions}) => {
+const ResultScreen: React.FC<Props> = ({ points, questions }) => {
   return (
-    <div>
-      <h1>Results</h1>
-      <h4>You've scored {points} points out of {questions.length * 10}</h4>
-    </div>
+    <Flex align={"center"} gap={"20px"}>
+      <img src="/svgs/score.svg" alt="score chart" />
+      <H2>Congratulations you’ve scored</H2>
+      <H1>
+        {points} out of {questions.length * 10}
+      </H1>
+    </Flex>
   );
 };
 

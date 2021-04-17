@@ -3,7 +3,7 @@ import { colors } from './colors';
 
 type ButtonProps = {
     width?: string;
-    color?: "primary" | "secondary";
+    variant?: "outlined" | "contained";
 }
 
 const Button = styled.button<ButtonProps>`
@@ -25,7 +25,7 @@ const Button = styled.button<ButtonProps>`
     }
 
     ${(props) => props.width && css`width: ${props.width}`};
-    ${(props) => props.color === "primary" && css`
+    ${(props) => props.variant === "outlined" && css`
         background-color: white;
         color: ${colors.primary['1']};
         border: 2px solid ${colors.primary['1']};

@@ -9,6 +9,15 @@ export const H1 = styled.h1`
     color: ${colors.dark['1']};
 `
 
+
+export const H2 = styled.h1`
+    font-size: 30px;
+    font-family: 'poppins';
+    font-weight: 500;
+    color: ${colors.dark['1']};
+`
+
+
 export const Body1 = styled.p`
     font-size: 15px;
     font-family: 'poppins';
