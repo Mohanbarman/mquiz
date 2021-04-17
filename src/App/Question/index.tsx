@@ -1,5 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { QuestionType } from "../../api/fetchQuestions";
+import Button from "../../shared/button";
+import { Flex } from "../../shared/flex";
+import { Label } from "../../shared/typography";
+import StyledQuestion from "./styledQuestion";
+import StyledRadio from "./styledRadio";
 
 type Props = {
   question: QuestionType;
@@ -25,30 +30,43 @@ const QuestionScreen: React.FC<Props> = ({
   }, [index]);
 
   return (
-    <div>
-      <h3>
-        Question : ${index + 1} {question.question}
-      </h3>
-      <form ref={formRef} onSubmit={e => e.preventDefault()} action="#">
-        {question.answers.map((answer, index) => (
-          <div key={index}>
-            <input
-              type="radio"
-              name={"answer"}
-              disabled={isDisabled}
-              id={`answer-${question.id}-${index}`}
-              value={answer}
-              onClick={() => {
-                onAnswer(question.correct_answer === answer);
-                setIsDisabled(true);
-              }}
-            />
-            <label htmlFor={`answer-${question.id}-${index}`}>{answer}</label>
-          </div>
-        ))}
-        <button type="submit" onClick={() => onNext()}>Next</button>
-      </form>
-    </div>
+    <form ref={formRef} onSubmit={(e) => e.preventDefault()}>
+      <Flex
+        direction="column"
+        gap="30px"
+        style={{ paddingTop: "30px" }}
+        align={"center"}
+      >
+        <StyledQuestion
+          heading={`Question : ${index + 1}`}
+          body={question.question}
+        />
+        <Flex gap={"20px"} style={{ width: "100%" }}>
+          {question.answers.map((answer, index) => (
+            <StyledRadio
+              color={question.correct_answer === answer ? "green" : "red"}
+              key={index}
+            >
+              <input
+                type="radio"
+                name={"answer"}
+                disabled={isDisabled}
+                id={`answer-${question.id}-${index}`}
+                value={answer}
+                onClick={() => {
+                  onAnswer(question.correct_answer === answer);
+                  setIsDisabled(true);
+                }}
+              />
+              <Label htmlFor={`answer-${question.id}-${index}`} dangerouslySetInnerHTML={{__html: answer}}/>
+            </StyledRadio>
+          ))}
+        </Flex>
+        <Button type="submit" onClick={() => onNext()} width="100%">
+          Next
+        </Button>
+      </Flex>
+    </form>
   );
 };
 
