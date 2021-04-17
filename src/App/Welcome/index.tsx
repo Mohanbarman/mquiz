@@ -5,6 +5,7 @@ import { H1, Label } from "../../shared/typography";
 import { Flex } from "../../shared/flex";
 import { SelectContainer, Select } from "../../shared/select";
 import Button from "../../shared/button";
+import LoadingCat from "../../shared/loadingCat";
 
 type Props = {
   callback: (
@@ -37,67 +38,69 @@ const StartScreen: React.FC<Props> = ({ callback }) => {
       direction={"column"}
       align={"center"}
       gap={"20px"}
-      style={{ paddingTop: "30px" }}
+      style={{ paddingTop: "30px", minHeight: '90vh' }}
     >
-      <img src={"/svgs/welcome.svg"} alt={"welcome cat"} />
-      <H1>To The Trivia</H1>
-      {error && <h3>{error}</h3>}
       {loading && !error ? (
-        <h5>Loading...</h5>
+        <LoadingCat center={true} label={"Loading ...."} />
       ) : (
-        <Flex direction={"column"} align={"center"} gap={"20px"}>
-          <SelectContainer>
-            <Label htmlFor="amount">Select number of questions</Label>
-            <Select
-              id="amount"
-              value={amount}
-              onChange={(e) => setAmount(parseInt(e.target.value))}
-            >
-              {validAmounts.map((amount, index) => (
-                <option value={amount} key={index}>
-                  {amount}
-                </option>
-              ))}
-            </Select>
-          </SelectContainer>
+        <>
+          <img src={"/svgs/welcome.svg"} alt={"Welcome cat"} style={{width: '100%'}}/>
+          <H1 style={{textAlign: 'center'}}>TO THE TRIVIA</H1>
+          {error && <h3>{error}</h3>}
+          <Flex style={{width: '100%'}} direction={"column"} align={"center"} gap={"20px"}>
+            <SelectContainer>
+              <Label htmlFor="amount">Select number of questions</Label>
+              <Select
+                id="amount"
+                value={amount}
+                onChange={(e) => setAmount(parseInt(e.target.value))}
+              >
+                {validAmounts.map((amount, index) => (
+                  <option value={amount} key={index}>
+                    {amount}
+                  </option>
+                ))}
+              </Select>
+            </SelectContainer>
 
-          <SelectContainer>
-            <Label htmlFor="difficulty">Select difficulty</Label>
-            <Select
-              id="difficulty"
-              value={difficulty}
-              onChange={(e) => setDifficulty(e.target.value)}
-            >
-              {difficulties.map((i, index) => (
-                <option value={i} key={index}>
-                  {i}
-                </option>
-              ))}
-            </Select>
-          </SelectContainer>
+            <SelectContainer>
+              <Label htmlFor="difficulty">Select difficulty</Label>
+              <Select
+                id="difficulty"
+                value={difficulty}
+                onChange={(e) => setDifficulty(e.target.value)}
+              >
+                {difficulties.map((i, index) => (
+                  <option value={i} key={index}>
+                    {i}
+                  </option>
+                ))}
+              </Select>
+            </SelectContainer>
 
-          <SelectContainer>
-            <Label htmlFor="categories">Select category</Label>
-            <Select
-              id={"categories"}
-              value={category}
-              onChange={(e) => setCategory(parseInt(e.target.value))}
-            >
-              {categories.map((i) => (
-                <option value={i.id} key={i.id}>
-                  {i.name}
-                </option>
-              ))}
-            </Select>
-          </SelectContainer>
+            <SelectContainer>
+              <Label htmlFor="categories">Select category</Label>
+              <Select
+                id={"categories"}
+                value={category}
+                onChange={(e) => setCategory(parseInt(e.target.value))}
+              >
+                {categories.map((i) => (
+                  <option value={i.id} key={i.id}>
+                    {i.name}
+                  </option>
+                ))}
+              </Select>
+            </SelectContainer>
 
-          <Button
-            onClick={() => callback(amount, difficulty, category)}
-            width={"100%"}
-          >
-            Start
-          </Button>
-        </Flex>
+            <Button
+              onClick={() => callback(amount, difficulty, category)}
+              width={"100%"}
+            >
+              Start
+            </Button>
+          </Flex>
+        </>
       )}
     </Flex>
   );
