@@ -1,16 +1,16 @@
 Quiz App Todo:
-  ✔ logic @done(21-04-15 13:29)
     ✔ create types for response and usable objects @done(21-04-14 13:10)
     ✔ create a function (amount, difficulty?, category?) => QuestionType[] @done(21-04-14 14:45)
     ✔ create a function to fetch all the categories () => Category[] @done(21-04-14 15:07)
     ✔ take input about for amount, difficulty, category from user from frontend @done(21-04-15 12:39)
     ✔ add points for each question solved according to difficulty @done(21-04-15 13:29)
-  ☐ frontend
     ✔ display question text @done(21-04-15 13:29)
     ✔ buid ui @done(21-04-15 17:28)
     ✔ add styling to welcome page @done(21-04-17 10:21)
     ✔ add styling to dropdown @done(21-04-17 10:21)
-    ☐ create question component
+    ✔ create question component @done(21-04-17 11:02)
+    ✔ create option component @done(21-04-17 12:13)
+    ☐ add animated cat svg for loading
     ☐ add styling to results page
-    ☐ response when user clicks on a answer
-    ☐ result at the end, total points
+    ✔ response when user clicks on a answer @done(21-04-17 12:13)
+    ✔ result at the end, total points @done(21-04-17 12:13)
