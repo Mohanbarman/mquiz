@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import fetchCategories, { CategoryType } from "@api/fetchCategories";
-import { DIFFICULTY } from "@api/fetchQuestions";
-import { H1 } from "@shared/typography";
-import { Flex } from "@shared/flex";
+import fetchCategories, { CategoryType } from "../../api/fetchCategories";
+import { DIFFICULTY } from "../../api/fetchQuestions";
+import { H1, Label } from "../../shared/typography";
+import { Flex } from "../../shared/flex";
+import { SelectContainer, Select } from "../../shared/select";
+import Button from "../../shared/button";
 
 type Props = {
   callback: (
@@ -21,7 +23,7 @@ const StartScreen: React.FC<Props> = ({ callback }) => {
   const [error, setError] = useState<string>("");
 
   const validAmounts = [3, 5, 10, 15, 20];
-  const difficulties = [DIFFICULTY.EASY, DIFFICULTY.HARD, DIFFICULTY.MEDIUM];
+  const difficulties = [DIFFICULTY.EASY, DIFFICULTY.MEDIUM, DIFFICULTY.HARD];
 
   useEffect(() => {
     fetchCategories()
@@ -43,10 +45,10 @@ const StartScreen: React.FC<Props> = ({ callback }) => {
       {loading && !error ? (
         <h5>Loading...</h5>
       ) : (
-        <Flex direction={"column"} align={"center"} gap={"10px"}>
-          <div>
-            <label htmlFor="amount">Select number of questions</label>
-            <select
+        <Flex direction={"column"} align={"center"} gap={"20px"}>
+          <SelectContainer>
+            <Label htmlFor="amount">Select number of questions</Label>
+            <Select
               id="amount"
               value={amount}
               onChange={(e) => setAmount(parseInt(e.target.value))}
@@ -56,12 +58,12 @@ const StartScreen: React.FC<Props> = ({ callback }) => {
                   {amount}
                 </option>
               ))}
-            </select>
-          </div>
+            </Select>
+          </SelectContainer>
 
-          <div>
-            <label htmlFor="difficulty">Select difficulty</label>
-            <select
+          <SelectContainer>
+            <Label htmlFor="difficulty">Select difficulty</Label>
+            <Select
               id="difficulty"
               value={difficulty}
               onChange={(e) => setDifficulty(e.target.value)}
@@ -71,12 +73,12 @@ const StartScreen: React.FC<Props> = ({ callback }) => {
                   {i}
                 </option>
               ))}
-            </select>
-          </div>
+            </Select>
+          </SelectContainer>
 
-          <div>
-            <label htmlFor="categories">Select category</label>
-            <select
+          <SelectContainer>
+            <Label htmlFor="categories">Select category</Label>
+            <Select
               id={"categories"}
               value={category}
               onChange={(e) => setCategory(parseInt(e.target.value))}
@@ -86,14 +88,15 @@ const StartScreen: React.FC<Props> = ({ callback }) => {
                   {i.name}
                 </option>
               ))}
-            </select>
-          </div>
+            </Select>
+          </SelectContainer>
 
-          <div>
-            <button onClick={() => callback(amount, difficulty, category)}>
-              Start
-            </button>
-          </div>
+          <Button
+            onClick={() => callback(amount, difficulty, category)}
+            width={"100%"}
+          >
+            Start
+          </Button>
         </Flex>
       )}
     </Flex>
