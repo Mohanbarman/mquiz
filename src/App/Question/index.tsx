@@ -23,11 +23,21 @@ const QuestionScreen: React.FC<Props> = ({
 }) => {
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const formRef = useRef<HTMLFormElement>(null);
+  const [isAnsweredWrong, setIsAnsweredWrong] = useState(false);
+  const rightAnswerRef = useRef<HTMLInputElement>(null);
+  const correctAnswer = question.correct_answer;
 
   useEffect(() => {
     setIsDisabled(false);
+    setIsAnsweredWrong(false);
     formRef.current?.reset();
   }, [index]);
+
+  function handleAnswer(isCorrect: boolean) {
+    onAnswer(isCorrect);
+    setIsDisabled(true);
+    setIsAnsweredWrong(!isCorrect);
+  }
 
   return (
     <form ref={formRef} onSubmit={(e) => e.preventDefault()}>
@@ -44,8 +54,9 @@ const QuestionScreen: React.FC<Props> = ({
         <Flex gap={"20px"} style={{ width: "100%" }}>
           {question.answers.map((answer, index) => (
             <StyledRadio
-              color={question.correct_answer === answer ? "green" : "red"}
+              color={correctAnswer === answer ? "green" : "red"}
               key={index}
+              checked={isAnsweredWrong && correctAnswer === answer}
             >
               <input
                 type="radio"
@@ -53,12 +64,13 @@ const QuestionScreen: React.FC<Props> = ({
                 disabled={isDisabled}
                 id={`answer-${question.id}-${index}`}
                 value={answer}
-                onClick={() => {
-                  onAnswer(question.correct_answer === answer);
-                  setIsDisabled(true);
-                }}
+                ref={correctAnswer === answer ? rightAnswerRef : undefined}
+                onClick={() => handleAnswer(correctAnswer === answer)}
               />
-              <Label htmlFor={`answer-${question.id}-${index}`} dangerouslySetInnerHTML={{__html: answer}}/>
+              <Label
+                htmlFor={`answer-${question.id}-${index}`}
+                dangerouslySetInnerHTML={{ __html: answer }}
+              />
             </StyledRadio>
           ))}
         </Flex>

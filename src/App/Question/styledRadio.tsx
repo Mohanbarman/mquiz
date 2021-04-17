@@ -3,6 +3,7 @@ import { colors } from "../../shared/colors";
 
 type Props = {
   color: "green" | "red";
+  checked?: boolean;
 };
 
 const StyledRadio = styled.div<Props>`
@@ -39,6 +40,19 @@ const StyledRadio = styled.div<Props>`
     background-color: ${colors.primary["1"]};
     color: white;
   }
+
+  ${(props) =>
+    props.checked === true &&
+    css`
+      label {
+        background-color: ${colors.green["3"]};
+        color: ${colors.green["1"]};
+        border: 1px solid ${colors.green["1"]};
+        :before {
+          border: 2px solid ${colors.green["1"]};
+        }
+      }
+    `}
 
   ${(props) =>
     css`
