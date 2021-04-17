@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { QuestionType } from "@api/fetchQuestions";
+import { QuestionType } from "../../api/fetchQuestions";
 
 type Props = {
   question: QuestionType;

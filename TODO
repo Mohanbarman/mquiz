@@ -8,8 +8,8 @@ Quiz App Todo:
   ☐ frontend
     ✔ display question text @done(21-04-15 13:29)
     ✔ buid ui @done(21-04-15 17:28)
-    ☐ add styling to welcome page
-    ☐ add styling to dropdown
+    ✔ add styling to welcome page @done(21-04-17 10:21)
+    ✔ add styling to dropdown @done(21-04-17 10:21)
     ☐ create question component
     ☐ add styling to results page
     ☐ response when user clicks on a answer
