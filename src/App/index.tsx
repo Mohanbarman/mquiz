@@ -3,6 +3,19 @@ import fetchQuestions, { QuestionType } from "../api/fetchQuestions";
 import QuestionScreen from "./Question";
 import ResultScreen from "./Results";
 import StartScreen from "./Welcome";
+import styled from "styled-components";
+
+const CenterContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 30px;
+  width: 100%;
+`;
+
+const CenterContainerChild = styled.div`
+  max-width: 500px;
+  width: 100%;
+`;
 
 const App: React.FC = () => {
   const [isGameStarted, setIsGameStarted] = useState<boolean>(false);
@@ -44,8 +57,8 @@ const App: React.FC = () => {
   }
 
   return (
-    <div style={{ display: "flex", justifyContent: "center" }}>
-      <div style={{maxWidth: '1000px'}}>
+    <CenterContainer>
+      <CenterContainerChild>
         {isGameStarted && (
           <QuestionScreen
             question={questions[currentQuestionIndex]}
@@ -59,8 +72,8 @@ const App: React.FC = () => {
           <StartScreen callback={loadQuestions} />
         )}
         {isGameOver && <ResultScreen points={points} questions={questions} />}
-      </div>
-    </div>
+      </CenterContainerChild>
+    </CenterContainer>
   );
 };
 
