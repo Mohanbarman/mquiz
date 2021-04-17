@@ -6,7 +6,7 @@ type ButtonProps = {
     color?: "primary" | "secondary";
 }
 
-const Button = styled.div<ButtonProps>`
+const Button = styled.button<ButtonProps>`
     font-family: 'poppins';
     font-weight: 500;
     color: white;
