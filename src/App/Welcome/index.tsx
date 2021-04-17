@@ -6,6 +6,7 @@ import { Flex } from "../../shared/flex";
 import { SelectContainer, Select } from "../../shared/select";
 import Button from "../../shared/button";
 import LoadingCat from "../../shared/loadingCat";
+import welcomeSvg from '../../assets/welcome.svg';
 
 type Props = {
   callback: (
@@ -44,7 +45,7 @@ const StartScreen: React.FC<Props> = ({ callback }) => {
         <LoadingCat center={true} label={"Loading ...."} />
       ) : (
         <>
-          <img src={"/svgs/welcome.svg"} alt={"Welcome cat"} style={{width: '100%'}}/>
+          <img src={welcomeSvg} alt={"Welcome cat"} style={{width: '100%'}}/>
           <H1 style={{textAlign: 'center'}}>TO THE TRIVIA</H1>
           {error && <h3>{error}</h3>}
           <Flex style={{width: '100%'}} direction={"column"} align={"center"} gap={"20px"}>

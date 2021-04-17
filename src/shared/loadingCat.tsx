@@ -63,8 +63,8 @@ const LoadingCat: React.FC<{ label: string; center?: boolean }> = ({
   return (
     <StyledLoadingCat center={center}>
       <svg
-        width="50"
-        height="80"
+        // width="50"
+        height="100"
         viewBox="0 0 98 117"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
