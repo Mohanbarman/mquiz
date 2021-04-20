@@ -16,6 +16,7 @@ const resultSchema = new Schema({
     totalQuestions: Number,
     rightQuestions: Number,
     createdAt: { type: Date, default: Date.now },
+    user: { type: Schema.Types.ObjectId, ref: 'users' },
 });
 
 export default model<IResult>('results', resultSchema);
