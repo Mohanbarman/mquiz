@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import styled from "styled-components";
+
+import LoadingCat from "../shared/loadingCat";
+import { UserContext, UserContextType } from "../provider/userProvider";
 import fetchQuestions, { QuestionType } from "../api/fetchQuestions";
 import QuestionScreen from "./Question";
 import ResultScreen from "./Results";
 import StartScreen from "./Welcome";
-import styled from "styled-components";
-import LoadingCat from "../shared/loadingCat";
+import { useMutation } from "@apollo/client";
 
 const CenterContainer = styled.div`
   display: flex;
@@ -26,7 +29,7 @@ const App: React.FC = () => {
   const [points, setPoints] = useState<number>(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [isLoadingQuestions, setIsLoadingQuestions] = useState<boolean>(false);
-  const [name, setName] = useState<string>("");
+  const { user } = (useContext(UserContext) as unknown) as UserContextType;
 
   async function loadQuestions(
     name: string,
@@ -35,7 +38,6 @@ const App: React.FC = () => {
     categoryID: number | undefined
   ) {
     setIsLoadingQuestions(true);
-    setName(name);
     const questionsResponse = await fetchQuestions(
       amount,
       difficulty,
