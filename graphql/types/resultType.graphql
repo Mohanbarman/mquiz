@@ -1,0 +1,24 @@
+type Result {
+    id: ID!
+    totalQuestions: Int!
+    rightQuestions: Int!
+    category: String!
+    name: String!
+    createdAt: String!
+}
+
+input ResultInput {
+    name: String!
+    category: String!
+    difficulty: String!
+    totalQuestions: Int!
+    rightQuestions: Int!
+}
+
+type Query {
+    getResults: [Result!]
+}
+
+type Mutation {
+    addResult(resultInput: ResultInput): Result
+}
