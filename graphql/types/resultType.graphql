@@ -1,15 +1,15 @@
 type Result {
     id: ID!
+    user: User!
     totalQuestions: Int!
     rightQuestions: Int!
     category: String!
-    name: String!
     createdAt: String!
 }
 
 input ResultInput {
-    name: String!
     category: String!
+    userID: String!
     difficulty: String!
     totalQuestions: Int!
     rightQuestions: Int!
