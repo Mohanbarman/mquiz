@@ -6,10 +6,11 @@ import { Flex } from "../../shared/flex";
 import { SelectContainer, Select } from "../../shared/select";
 import Button from "../../shared/button";
 import LoadingCat from "../../shared/loadingCat";
-import welcomeSvg from '../../assets/welcome.svg';
+import welcomeSvg from "../../assets/welcome.svg";
 
 type Props = {
   callback: (
+    name: string,
     amount: number,
     difficulty: string | undefined,
     category: number | undefined
@@ -19,10 +20,12 @@ type Props = {
 const StartScreen: React.FC<Props> = ({ callback }) => {
   const [categories, setCategories] = useState<CategoryType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+
   const [amount, setAmount] = useState<number>(10);
   const [difficulty, setDifficulty] = useState<string>("");
   const [category, setCategory] = useState<number>();
-  const [error, setError] = useState<string>("");
+  const [name, setName] = useState<string>("");
 
   const validAmounts = [3, 5, 10, 15, 20];
   const difficulties = [DIFFICULTY.EASY, DIFFICULTY.MEDIUM, DIFFICULTY.HARD];
@@ -39,16 +42,32 @@ const StartScreen: React.FC<Props> = ({ callback }) => {
       direction={"column"}
       align={"center"}
       gap={"20px"}
-      style={{ paddingTop: "30px", minHeight: '90vh' }}
+      style={{ paddingTop: "30px", minHeight: "90vh" }}
     >
       {loading && !error ? (
         <LoadingCat center={true} label={"Loading ...."} />
       ) : (
         <>
-          <img src={welcomeSvg} alt={"Welcome cat"} style={{width: '100%'}}/>
-          <H1 style={{textAlign: 'center'}}>TO THE TRIVIA</H1>
+          <img src={welcomeSvg} alt={"Welcome cat"} style={{ width: "100%" }} />
+          <H1 style={{ textAlign: "center" }}>TO THE TRIVIA</H1>
           {error && <h3>{error}</h3>}
-          <Flex style={{width: '100%'}} direction={"column"} align={"center"} gap={"20px"}>
+          <Flex
+            style={{ width: "100%" }}
+            direction={"column"}
+            align={"center"}
+            gap={"20px"}
+          >
+
+            <div>
+              <Label htmlFor="name-input">Enter your name</Label>
+              <input
+                id="name-input"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+
             <SelectContainer>
               <Label htmlFor="amount">Select number of questions</Label>
               <Select
@@ -95,7 +114,7 @@ const StartScreen: React.FC<Props> = ({ callback }) => {
             </SelectContainer>
 
             <Button
-              onClick={() => callback(amount, difficulty, category)}
+              onClick={() => callback(name, amount, difficulty, category)}
               width={"100%"}
             >
               Start

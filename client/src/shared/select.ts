@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { colors } from './colors';
-import dropdownIcon from '../icons/dropdown.svg';
+import dropdownIcon from '../assets/icons/dropdown.svg';
 
 
 export const SelectContainer = styled.div`

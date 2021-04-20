@@ -26,13 +26,16 @@ const App: React.FC = () => {
   const [points, setPoints] = useState<number>(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
   const [isLoadingQuestions, setIsLoadingQuestions] = useState<boolean>(false);
+  const [name, setName] = useState<string>("");
 
   async function loadQuestions(
+    name: string,
     amount: number,
     difficulty: string | undefined,
     categoryID: number | undefined
   ) {
     setIsLoadingQuestions(true);
+    setName(name);
     const questionsResponse = await fetchQuestions(
       amount,
       difficulty,
