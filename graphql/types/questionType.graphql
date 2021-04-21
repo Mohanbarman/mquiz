@@ -1,0 +1,30 @@
+enum AllowedQuestion {
+    BOOLEAN
+    MULTIPLE
+}
+
+enum AllowedDifficulty {
+    HARD
+    EASY
+    MEDIUM
+}
+
+type Question {
+    id: ID!
+    category: Category!
+    type: AllowedQuestion!
+    difficulty: AllowedDifficulty!
+    question: String!
+    correctAnswer: String!
+    answers: [String!]
+}
+
+input QuestionInput {
+    amount: Int!
+    categoryID: Int!
+    difficulty: AllowedDifficulty
+}
+
+type Query {
+    getQuestions(input: QuestionInput): [Question!]
+}
