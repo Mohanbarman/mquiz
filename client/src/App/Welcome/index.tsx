@@ -1,41 +1,42 @@
 import React, { useEffect, useState } from "react";
-import fetchCategories, { CategoryType } from "../../api/fetchCategories";
-import { DIFFICULTY } from "../../api/fetchQuestions";
+import { useQuery } from "@apollo/client";
+
 import { H1, Label } from "../../shared/typography";
 import { Flex } from "../../shared/flex";
 import { SelectContainer, Select } from "../../shared/select";
 import Button from "../../shared/button";
 import LoadingCat from "../../shared/loadingCat";
 import welcomeSvg from "../../assets/welcome.svg";
+import { GET_CATEGORIES } from "../../graphql/categoryGql";
+import { DIFFICULTY, CategoryType } from "../../types";
 
 type Props = {
   callback: (
-    name: string,
     amount: number,
-    difficulty: string | undefined,
-    category: number | undefined
+    difficulty: DIFFICULTY,
+    category: number,
   ) => void;
 };
 
 const StartScreen: React.FC<Props> = ({ callback }) => {
   const [categories, setCategories] = useState<CategoryType[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
 
   const [amount, setAmount] = useState<number>(10);
-  const [difficulty, setDifficulty] = useState<string>("");
-  const [category, setCategory] = useState<number>();
+  const [difficulty, setDifficulty] = useState<DIFFICULTY>(DIFFICULTY.EASY);
+  const [category, setCategory] = useState<number>(9);
   const [name, setName] = useState<string>("");
 
   const validAmounts = [3, 5, 10, 15, 20];
   const difficulties = [DIFFICULTY.EASY, DIFFICULTY.MEDIUM, DIFFICULTY.HARD];
 
+  const { loading, data, error } = useQuery(GET_CATEGORIES);
+
   useEffect(() => {
-    fetchCategories()
-      .then(setCategories)
-      .catch(setError)
-      .finally(() => setLoading(false));
-  }, []);
+    if (data) {
+      setCategories(data["getCategories"]);
+      setCategory(parseInt(data["getCategories"][0].id));
+    }
+  }, [data]);
 
   return (
     <Flex
@@ -50,14 +51,13 @@ const StartScreen: React.FC<Props> = ({ callback }) => {
         <>
           <img src={welcomeSvg} alt={"Welcome cat"} style={{ width: "100%" }} />
           <H1 style={{ textAlign: "center" }}>TO THE TRIVIA</H1>
-          {error && <h3>{error}</h3>}
+          {error && <h3>{error.message.toString()}</h3>}
           <Flex
             style={{ width: "100%" }}
             direction={"column"}
             align={"center"}
             gap={"20px"}
           >
-
             <div>
               <Label htmlFor="name-input">Enter your name</Label>
               <input
@@ -88,11 +88,19 @@ const StartScreen: React.FC<Props> = ({ callback }) => {
               <Select
                 id="difficulty"
                 value={difficulty}
-                onChange={(e) => setDifficulty(e.target.value)}
+                onChange={(e) =>
+                  setDifficulty(
+                    DIFFICULTY[
+                      (parseInt(
+                        e.target.value
+                      ) as unknown) as keyof typeof DIFFICULTY
+                    ]
+                  )
+                }
               >
                 {difficulties.map((i, index) => (
-                  <option value={i} key={index}>
-                    {i}
+                  <option value={index} key={index}>
+                    {i.toLowerCase()}
                   </option>
                 ))}
               </Select>
@@ -114,7 +122,7 @@ const StartScreen: React.FC<Props> = ({ callback }) => {
             </SelectContainer>
 
             <Button
-              onClick={() => callback(name, amount, difficulty, category)}
+              onClick={() => callback(amount, difficulty, category)}
               width={"100%"}
             >
               Start
