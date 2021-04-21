@@ -3,7 +3,6 @@ import { v4 as uuid } from 'uuid';
 import fetch from 'node-fetch';
 
 import {shuffleArray} from '../utils/shuffleArray';
-import { CategoryType } from '../client/src/api/fetchCategories';
 import CategoryModel from './categoryModel';
 
 type QuestionResponseType = {
@@ -13,22 +12,6 @@ type QuestionResponseType = {
     question: string;
     correct_answer: string;
     incorrect_answers: string[];
-}
-
-type QuestionType = {
-    id: string;
-    category: CategoryType;
-    type: string;
-    difficulty: DIFFICULTY;
-    question: string;
-    correctAnswer: string;
-    answers: string[];
-}
-
-enum DIFFICULTY {
-    EASY = 'easy',
-    MEDIUM = 'medium',
-    HARD = 'hard',
 }
 
 class QuestionModel {
