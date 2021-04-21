@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { QuestionType } from "../../api/fetchQuestions";
+
 import Button from "../../shared/button";
 import { Flex } from "../../shared/flex";
 import { Label } from "../../shared/typography";
 import StyledQuestion from "./styledQuestion";
 import StyledRadio from "./styledRadio";
+import { QuestionType } from "../../types";
 
 type Props = {
   question: QuestionType;
@@ -25,7 +26,7 @@ const QuestionScreen: React.FC<Props> = ({
   const formRef = useRef<HTMLFormElement>(null);
   const [isAnsweredWrong, setIsAnsweredWrong] = useState(false);
   const rightAnswerRef = useRef<HTMLInputElement>(null);
-  const correctAnswer = question.correct_answer;
+  const correctAnswer = question.correctAnswer;
 
   useEffect(() => {
     setIsDisabled(false);
