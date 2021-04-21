@@ -1,4 +1,4 @@
-enum AllowedQuestion {
+enum AllowedQuestionType {
     BOOLEAN
     MULTIPLE
 }
@@ -12,7 +12,7 @@ enum AllowedDifficulty {
 type Question {
     id: ID!
     category: Category!
-    type: AllowedQuestion!
+    type: AllowedQuestionType!
     difficulty: AllowedDifficulty!
     question: String!
     correctAnswer: String!
