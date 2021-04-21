@@ -35,6 +35,6 @@ export const UserProvider = (props: any) => {
   }, [user]);
 
   return (
-    <UserContext.Provider values={{ user, updateUser: setUser }} {...props} />
+    <UserContext.Provider value={{ user, updateUser: setUser }} {...props} />
   );
 };
