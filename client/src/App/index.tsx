@@ -1,17 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import { useLazyQuery, useMutation } from "@apollo/client";
 
 import LoadingCat from "../shared/loadingCat";
 import { UserContext, UserContextType } from "../provider/userProvider";
-import fetchQuestions, { QuestionType } from "../api/fetchQuestions";
 import QuestionScreen from "./Question";
 import ResultScreen from "./Results";
 import StartScreen from "./Welcome";
-import { useMutation } from "@apollo/client";
+import { QuestionType, DIFFICULTY } from "../types";
+import { GET_QUESTIONS } from "../graphql/questionsGql";
+import { H2 } from "../shared/typography";
 
 const CenterContainer = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   padding: 30px;
   width: 100%;
   min-height: 100vh;
@@ -28,36 +31,47 @@ const App: React.FC = () => {
   const [questions, setQuestions] = useState<QuestionType[]>([]);
   const [points, setPoints] = useState<number>(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
-  const [isLoadingQuestions, setIsLoadingQuestions] = useState<boolean>(false);
+
   const { user } = (useContext(UserContext) as unknown) as UserContextType;
+  const [difficulty, setDifficulty] = useState<string>("Easy");
+
+  const [
+    getQuestions,
+    { data: questionsData, error: questionsError, loading: isLoadingQuestions },
+  ] = useLazyQuery(GET_QUESTIONS);
 
   async function loadQuestions(
-    name: string,
     amount: number,
-    difficulty: string | undefined,
-    categoryID: number | undefined
+    difficulty: DIFFICULTY,
+    categoryID: number
   ) {
-    setIsLoadingQuestions(true);
-    const questionsResponse = await fetchQuestions(
-      amount,
-      difficulty,
-      categoryID
-    );
-    setIsLoadingQuestions(false);
-    setQuestions(questionsResponse);
-    setIsGameStarted(true);
+    getQuestions({
+      variables: { amount, categoryID, difficulty: DIFFICULTY[difficulty] },
+    });
   }
+
+  useEffect(() => {
+    if (questionsData) {
+      setQuestions(questionsData['getQuestions']);
+      setIsGameStarted(true);
+    }
+  }, [questionsData]);
 
   function handleNextQuestion() {
     setCurrentQuestionIndex((p) => {
       // game over if user is on last question and presses next
       if (p + 2 === questions.length) {
+        submitResult();
         setIsGameOver(true);
         setIsGameStarted(false);
         return 0;
       }
       return p + 1;
     });
+  }
+
+  async function submitResult() {
+
   }
 
   function handleAnswerSubmit(isCorrect: boolean) {
@@ -74,6 +88,7 @@ const App: React.FC = () => {
 
   return (
     <CenterContainer>
+      {questionsError && <H2>{questionsError.message}</H2>}
       {isLoadingQuestions ? (
         <LoadingCat center={true} label={"Loading questions..."} />
       ) : (
