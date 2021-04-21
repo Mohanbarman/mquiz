@@ -1,10 +1,5 @@
 import fetch from 'node-fetch';
 
-type CategoryType = {
-    id: number;
-    name: string;
-}
-
 type CategoryFindOptions = {
     id?: number,
     name?: string,
@@ -29,7 +24,7 @@ class CategoryModel {
         // casting the response to CategoryType
         const categories: CategoryType[] = responseJson.trivia_categories.map((category: CategoryType) => category);
 
-        if (filterBy && !filterBy.id && !filterBy.name) return categories;
+        if (!filterBy) return categories;
 
         // filtering the category by id or name
         const category = categories.find((i) => {
