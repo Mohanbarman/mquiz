@@ -19,7 +19,7 @@ export const resolvers = {
     Mutation: { addResult, createUser },
 
     // enum resolvers map
-    AllowedQuestion: {
+    AllowedQuestionType: {
         BOOLEAN: 'boolean',
         MULTIPLE: 'multiple',
     },
