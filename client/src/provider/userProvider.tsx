@@ -30,8 +30,10 @@ export const UserProvider = (props: any) => {
 
   // update user object on localstorage each time it is updated
   useEffect(() => {
-    const userStr = JSON.stringify(user);
-    localStorage.setItem("user", userStr);
+    if (user) {
+      const userStr = JSON.stringify(user);
+      localStorage.setItem("user", userStr);
+    }
   }, [user]);
 
   return (
