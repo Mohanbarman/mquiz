@@ -79,7 +79,7 @@ const App: React.FC = () => {
   function handleNextQuestion() {
     setCurrentQuestionIndex((p) => {
       // game over if user is on last question and presses next
-      if (p + 2 === questions.length) {
+      if (p + 1 === questions.length) {
         submitResult();
         return 0;
       }
