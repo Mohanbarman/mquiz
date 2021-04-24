@@ -43,18 +43,22 @@ type Props = {
 const Table: React.FC<Props> = (props) => {
   return (
     <StyledTable>
-      <StyledHeader>
-        {props.headers.map((i) => (
-          <StyledTh>{i}</StyledTh>
-        ))}
-      </StyledHeader>
-      {props.body.map((i) => (
-        <tr>
-          {i.map((j) => (
-            <StyledTd>{j}</StyledTd>
+      <thead>
+        <StyledHeader>
+          {props.headers.map((i) => (
+            <StyledTh>{i}</StyledTh>
           ))}
-        </tr>
-      ))}
+        </StyledHeader>
+      </thead>
+      <tbody>
+        {props.body.map((i, index) => (
+          <tr key={index}>
+            {i.map((j) => (
+              <StyledTd>{j}</StyledTd>
+            ))}
+          </tr>
+        ))}
+      </tbody>
     </StyledTable>
   );
 };
