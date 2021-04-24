@@ -22,7 +22,7 @@ const CenterContainer = styled.div`
 `;
 
 const CenterContainerChild = styled.div`
-  max-width: 500px;
+  max-width: 600px;
   width: 100%;
 `;
 
@@ -44,10 +44,7 @@ const App: React.FC = () => {
     getQuestions,
     { data: questionsData, error: questionsError, loading: isLoadingQuestions },
   ] = useLazyQuery(GET_QUESTIONS);
-  const [
-    addResult,
-    { loading: addResultLoading, error: addResultError },
-  ] = useMutation(ADD_RESULT);
+  const [addResult, { loading: addResultLoading }] = useMutation(ADD_RESULT);
 
   /**
    * Load questions from the api
@@ -130,7 +127,9 @@ const App: React.FC = () => {
   return (
     <CenterContainer>
       {questionsError && <H2>{questionsError.message}</H2>}
-      {addResultLoading && <LoadingCat center={true} label={"Submitting result..."}/>}
+      {addResultLoading && (
+        <LoadingCat center={true} label={"Submitting result..."} />
+      )}
       {isLoadingQuestions ? (
         <LoadingCat center={true} label={"Loading questions..."} />
       ) : (
