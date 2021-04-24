@@ -45,16 +45,16 @@ const Table: React.FC<Props> = (props) => {
     <StyledTable>
       <thead>
         <StyledHeader>
-          {props.headers.map((i) => (
-            <StyledTh>{i}</StyledTh>
+          {props.headers.map((i, index) => (
+            <StyledTh key={index}>{i}</StyledTh>
           ))}
         </StyledHeader>
       </thead>
       <tbody>
         {props.body.map((i, index) => (
           <tr key={index}>
-            {i.map((j) => (
-              <StyledTd>{j}</StyledTd>
+            {i.map((j, index) => (
+              <StyledTd key={index}>{j}</StyledTd>
             ))}
           </tr>
         ))}
