@@ -3,6 +3,7 @@ type Result {
     user: User!
     totalQuestions: Int!
     rightQuestions: Int!
+    difficulty: AllowedDifficulty!
     category: String!
     createdAt: String!
 }
