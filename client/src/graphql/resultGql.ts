@@ -21,11 +21,13 @@ export const ADD_RESULT = gql`
 
 export const GET_RESULTS = gql`
     query GET_RESULTS {
+        getResults {
         id
         user { id name }
         totalQuestions
         rightQuestions
         category
-        createAt
+        createdAt
+        }
     }
 `
