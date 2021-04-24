@@ -34,7 +34,7 @@ $ npm run start
 
 ### Environment variables
 
-**IMPORTANT: Make sure to setup these before running the application**
+##### IMPORTANT: Make sure to setup these before running the application
 
 _create a .env file in the root of the project (Recommended)_
 | name | description |
