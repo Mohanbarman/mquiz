@@ -11,12 +11,13 @@ import { GET_CATEGORIES } from "../../graphql/categoryGql";
 import { DIFFICULTY, CategoryType } from "../../types";
 import { UserContext, UserContextType } from "../../provider/userProvider";
 import { CREATE_USER } from "../../graphql/userGql";
+import TextInput from "../../shared/textInput";
 
 type Props = {
   callback: (
     amount: number,
     difficulty: DIFFICULTY,
-    category: CategoryType,
+    category: CategoryType
   ) => void;
 };
 
@@ -132,18 +133,14 @@ const StartScreen: React.FC<Props> = ({ callback }) => {
               align={"center"}
               gap={"20px"}
             >
-              <div>
-                <Label htmlFor="name-input">Enter your name</Label>
-                <input
-                  id="name-input"
-                  placeholder="Ex: John"
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  disabled={isNameDisabled}
-                />
-                <p>{nameError}</p>
-              </div>
+              <TextInput
+                placeholder={"Ex: John"}
+                label={"Enter your name"}
+                disabled={isNameDisabled}
+                onChange={(e) => setName(e.target.value)}
+                value={name}
+                error={nameError}
+              />
 
               <SelectContainer>
                 <Label htmlFor="amount">Select number of questions</Label>
