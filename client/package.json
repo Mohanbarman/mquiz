@@ -1,7 +1,7 @@
 {
   "name": "quiz-app",
   "version": "0.1.0",
-  "homepage": "http://Mohanbarman.github.io/quiz-app",
+  "homepage": "http://Mohanbarman.github.io/mquiz",
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.3.15",
